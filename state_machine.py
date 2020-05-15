@@ -97,7 +97,11 @@ def run():
 
     paths = [path_bases[key] for key in input]
 
+    init_state="idle"
+    path_array = []
+	
     for path in paths:
+	
 
         supervisor = Generator.create_master(master_states, master_transitions)
         print('\n' + str(supervisor))
@@ -112,6 +116,9 @@ def run():
                 print("Supervisor done!")
 
             if supervisor.current_state.value == "scan":
+		path1 = move_j(robot, previous_position, scan_position)
+		previous_position = scan_position
+		path_array.append(path1)
                 pass
 
             if supervisor.current_state.value == "classify":
@@ -134,6 +141,13 @@ def run():
 
             if supervisor.current_state.value == "detach":
                 pass
+	
+	path = np.concatenate((path1, path2), axis=0)
+    	print(path)
+
+	# animate robot
+	robot.animate(stances=path, frame_rate=30, unit='deg')
+
 
 
 if __name__ == '__main__':
