@@ -113,43 +113,75 @@ def run():
             print(supervisor.current_state)
 
             if supervisor.current_state.value == "idle":
+                start = [90.0, 30.0, 30.0, 0.0, 0.0, 0.0]
+                path1 = move_j(robot, previous_position, start)
+                previous_position = start
+                path_array.append(path1)
                 print("Supervisor done!")
 
             if supervisor.current_state.value == "scan":
-                rot1 = rpy2r([0, 0, 0], unit='deg')  # Define scan position rotation and translation
-                tran1 = [0.5, 0.5, 0.5]
-                scan_position = pose.SE3(tran1[0], tran1[1], tran1[2], rot1)
-                path1 = move_j(robot, previous_position, scan_position)
-                previous_position = scan_position
+                scan = [90.0, 90.0, 0.0, 0.0, 0.0, 0.0]
+                path1 = move_j(robot, previous_position, scan)
+                previous_position = scan
                 path_array.append(path1)
-                pass
 
             if supervisor.current_state.value == "classify":
                 pass
 
             if supervisor.current_state.value == "grip":
-                pass
+                grip = [90.0, 120.0, 30.0, 0.0, 0.0, 0.0]
+                path1 = move_j(robot, previous_position, grip)
+                previous_position = grip
+                path_array.append(path1)
+
 
             if supervisor.current_state.value == "evaluate":
-                pass
+                evaluate = [90.0, 120.0, -30.0, 0.0, 0.0, 0.0]
+                path1 = move_j(robot, previous_position, evaluate)
+                previous_position = evaluate
+                path_array.append(path1)
+
 
             if supervisor.current_state.value == "trash":
-                pass
+                trash = [-90.0, 120.0, 30.0, 0.0, 0.0, 0.0]
+                path1 = move_j(robot, previous_position, trash)
+                previous_position = trash
+                path_array.append(path1)
 
             if supervisor.current_state.value == "transport_a":
-                pass
+                transport_a = [180.0, 120.0, 30.0, 0.0, 0.0, 0.0]
+                path1 = move_j(robot, previous_position, transport_a)
+                previous_position = transport_a
+                path_array.append(path1)
 
             if supervisor.current_state.value == "transport_b":
-                pass
+                transport_b = [0.0, 120.0, 30.0, 0.0, 0.0, 0.0]
+                path1 = move_j(robot, previous_position, transport_b)
+                previous_position = transport_b
+                path_array.append(path1)
 
             if supervisor.current_state.value == "detach":
-                pass
+                if previous_position == trash:
+                    detach =
+                    path1 = move_j(robot, previous_position, detach)
+                    previous_position = detach
 
-	path = np.concatenate((path1, path2), axis=0)
-    	print(path)
+                elif previous_position == transport_a:
+                    detach =
+                    path1 = move_j(robot, previous_position, detach)
+                    previous_position = detach
 
-	# animate robot
-	robot.animate(stances=path, frame_rate=30, unit='deg')
+                elif previous_position == transport_b:
+                    detach =
+                    path1 = move_j(robot, previous_position, detach)
+                    previous_position = detach
+                path_array.append(path1)
+
+        # Generate path
+        path = np.concatenate(path_array, axis=0)
+        print(path)
+        robot.animate(stances=path, frame_rate=30, unit='deg')
+
 
 
 
