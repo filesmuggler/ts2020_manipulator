@@ -107,6 +107,12 @@ def run():
         print('\n' + str(supervisor))
 
         print("Executing path: {}".format(path))
+        start = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        previous_position = start
+        trash = [-90.0, 120.0, 30.0, 0.0, 0.0, 0.0]
+        transport_a = [180.0, 120.0, 30.0, 0.0, 0.0, 0.0]
+        transport_b = [0.0, 120.0, 30.0, 0.0, 0.0, 0.0]
+
         for event in path:
 
             master_transitions[event]._run(supervisor)
@@ -162,17 +168,17 @@ def run():
 
             if supervisor.current_state.value == "detach":
                 if previous_position == trash:
-                    detach =
+                    detach = previous_position
                     path1 = move_j(robot, previous_position, detach)
                     previous_position = detach
 
                 elif previous_position == transport_a:
-                    detach =
+                    detach = previous_position
                     path1 = move_j(robot, previous_position, detach)
                     previous_position = detach
 
                 elif previous_position == transport_b:
-                    detach =
+                    detach = previous_position
                     path1 = move_j(robot, previous_position, detach)
                     previous_position = detach
                 path_array.append(path1)
