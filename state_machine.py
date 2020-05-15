@@ -1,4 +1,15 @@
+# built-in libraries
+import argparse
+import robopy.base.model as robot
+import sys
+import numpy as np
+from robopy.base import pose
+from robopy import rpy2r
+from commands.moves import move_lin, move_j
+
 from statemachine import StateMachine, State, Transition
+
+model = robot.Puma560()
 
 class Generator(StateMachine):
     states = []
