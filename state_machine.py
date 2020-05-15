@@ -11,6 +11,7 @@ from statemachine import StateMachine, State, Transition
 
 model = robot.Puma560()
 
+
 class Generator(StateMachine):
     states = []
     transitions = []
@@ -91,17 +92,15 @@ def run():
     path_trash = ["m_0_1", "m_1_2", "m_2_3", "m_3_4", "m_4_5", "m_5_1", "m_1_0"]
     path_nothing = ["m_0_1", "m_1_0"]
 
-    path_bases = {'R' : path_red, 'B' : path_blue, 'T' : path_trash, 'N' : path_nothing}
+    path_bases = {'R': path_red, 'B': path_blue, 'T': path_trash, 'N': path_nothing}
 
     input = ['R', 'B', 'B', 'T', 'N', 'R', 'R', 'T']
 
     paths = [path_bases[key] for key in input]
 
-    init_state="idle"
-    path_array = []
-	
+    init_state = "idle"
+
     for path in paths:
-	
 
         supervisor = Generator.create_master(master_states, master_transitions)
         print('\n' + str(supervisor))
@@ -112,6 +111,7 @@ def run():
         trash = [-90.0, 120.0, 30.0, 0.0, 0.0, 0.0]
         transport_a = [180.0, 120.0, 30.0, 0.0, 0.0, 0.0]
         transport_b = [0.0, 120.0, 30.0, 0.0, 0.0, 0.0]
+        path_array = []
 
         for event in path:
 
@@ -140,13 +140,11 @@ def run():
                 previous_position = grip
                 path_array.append(path1)
 
-
             if supervisor.current_state.value == "evaluate":
                 evaluate = [90.0, 120.0, -30.0, 0.0, 0.0, 0.0]
                 path1 = move_j(robot, previous_position, evaluate)
                 previous_position = evaluate
                 path_array.append(path1)
-
 
             if supervisor.current_state.value == "trash":
                 trash = [-90.0, 120.0, 30.0, 0.0, 0.0, 0.0]
