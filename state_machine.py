@@ -9,7 +9,7 @@ from commands.moves import move_lin, move_j
 
 from statemachine import StateMachine, State, Transition
 
-model = robot.Puma560()
+robot = robot.Puma560()
 
 class Generator(StateMachine):
     states = []
@@ -98,8 +98,8 @@ def run():
     paths = [path_bases[key] for key in input]
 
     init_state="idle"
-    path_array = []
-	
+
+
     for path in paths:
 	
 
@@ -112,9 +112,9 @@ def run():
         trash = [-90.0, 120.0, 30.0, 0.0, 0.0, 0.0]
         transport_a = [180.0, 120.0, 30.0, 0.0, 0.0, 0.0]
         transport_b = [0.0, 120.0, 30.0, 0.0, 0.0, 0.0]
+        path_array = []
 
         for event in path:
-
             master_transitions[event]._run(supervisor)
             print(supervisor.current_state)
 
@@ -183,10 +183,10 @@ def run():
                     previous_position = detach
                 path_array.append(path1)
 
-    # Generate path
-    path = np.concatenate(path_array, axis=0)
-    print(path)
-    model.animate(stances=path, frame_rate=30, unit='deg')
+        # Generate path
+        path = np.concatenate(path_array, axis=0)
+        print(path)
+        robot.animate(stances=path, frame_rate=30, unit='deg')
 
 
 if __name__ == '__main__':
