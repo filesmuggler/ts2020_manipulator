@@ -181,7 +181,7 @@ def run():
                     detach = previous_position
                     path1 = move_j(robot, previous_position, detach)
                     previous_position = detach
-                path_array.append(path1)jjjjjjj
+                path_array.append(path1)
 
         # Generate path
         path = np.concatenate(path_array, axis=0)
