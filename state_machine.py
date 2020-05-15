@@ -99,8 +99,9 @@ def run():
     paths = [path_bases[key] for key in input]
 
     init_state = "idle"
-    mega_path = []
     path_array = []
+    start = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    previous_position = start
 
     for path in paths:
 
@@ -108,8 +109,6 @@ def run():
         print('\n' + str(supervisor))
 
         print("Executing path: {}".format(path))
-        start = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-        previous_position = start
         trash = [-90.0, 120.0, 30.0, 0.0, 0.0, 0.0]
         transport_a = [180.0, 120.0, 30.0, 0.0, 0.0, 0.0]
         transport_b = [0.0, 120.0, 30.0, 0.0, 0.0, 0.0]
