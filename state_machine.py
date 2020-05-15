@@ -9,7 +9,7 @@ from commands.moves import move_lin, move_j
 
 from statemachine import StateMachine, State, Transition
 
-model = robot.Orion5()
+model = robot.Puma560()
 
 options = [
     {"name": "IDLE", "initial": True, "value": "idle"}, #0
