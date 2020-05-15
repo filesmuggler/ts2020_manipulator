@@ -99,6 +99,7 @@ def run():
     paths = [path_bases[key] for key in input]
 
     init_state = "idle"
+    mega_path = []
 
     for path in paths:
 
@@ -181,10 +182,15 @@ def run():
                     previous_position = detach
                 path_array.append(path1)
 
-        # Generate path
-        path = np.concatenate(path_array, axis=0)
-        print(path)
-        model.animate(stances=path, frame_rate=30, unit='deg')
+        #path = np.concatenate(path_array, axis=0)
+        mega_path = np.concatenate(path_array,axis=0)
+
+
+            
+        #print(path)
+        #model.animate(stances=path, frame_rate=30, unit='deg')
+    print(mega_path)
+    model.animate(stances=mega_path, frame_rate=30, unit='deg')
 
 
 if __name__ == '__main__':
