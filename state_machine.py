@@ -181,14 +181,12 @@ def run():
                     detach = previous_position
                     path1 = move_j(robot, previous_position, detach)
                     previous_position = detach
-                path_array.append(path1)
+                path_array.append(path1)jjjjjjj
 
         # Generate path
         path = np.concatenate(path_array, axis=0)
         print(path)
         robot.animate(stances=path, frame_rate=30, unit='deg')
-
-
 
 
 if __name__ == '__main__':
