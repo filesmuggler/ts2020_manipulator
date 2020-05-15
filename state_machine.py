@@ -100,6 +100,7 @@ def run():
 
     init_state = "idle"
     mega_path = []
+    path_array = []
 
     for path in paths:
 
@@ -112,7 +113,6 @@ def run():
         trash = [-90.0, 120.0, 30.0, 0.0, 0.0, 0.0]
         transport_a = [180.0, 120.0, 30.0, 0.0, 0.0, 0.0]
         transport_b = [0.0, 120.0, 30.0, 0.0, 0.0, 0.0]
-        path_array = []
 
         for event in path:
 
@@ -182,15 +182,12 @@ def run():
                     previous_position = detach
                 path_array.append(path1)
 
-        #path = np.concatenate(path_array, axis=0)
-        mega_path = np.concatenate(path_array,axis=0)
+    path = np.concatenate(path_array, axis=0)
 
-
-            
         #print(path)
         #model.animate(stances=path, frame_rate=30, unit='deg')
-    print(mega_path)
-    model.animate(stances=mega_path, frame_rate=30, unit='deg')
+    print(path)
+    model.animate(stances=path, frame_rate=30, unit='deg')
 
 
 if __name__ == '__main__':
