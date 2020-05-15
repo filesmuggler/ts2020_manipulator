@@ -183,10 +183,10 @@ def run():
                     previous_position = detach
                 path_array.append(path1)
 
-        # Generate path
-        path = np.concatenate(path_array, axis=0)
-        print(path)
-        robot.animate(stances=path, frame_rate=30, unit='deg')
+    # Generate path
+    path = np.concatenate(path_array, axis=0)
+    print(path)
+    model.animate(stances=path, frame_rate=30, unit='deg')
 
 
 if __name__ == '__main__':
