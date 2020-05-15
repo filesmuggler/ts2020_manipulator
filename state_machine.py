@@ -116,7 +116,7 @@ def run():
                 print("Supervisor done!")
 
             if supervisor.current_state.value == "scan":
-                rot1 = rpy2r([0, 0, 0], unit='deg')
+                rot1 = rpy2r([0, 0, 0], unit='deg')  # Define scan position rotation and translation
                 tran1 = [0.5, 0.5, 0.5]
                 scan_position = pose.SE3(tran1[0], tran1[1], tran1[2], rot1)
                 path1 = move_j(robot, previous_position, scan_position)
