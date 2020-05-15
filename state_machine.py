@@ -166,17 +166,18 @@ def run():
 
             if supervisor.current_state.value == "detach":
                 if previous_position == trash:
-                    detach = previous_position
+                    detach = [-90.0, 140.0, 20.0, 0.0, 0.0, 0.0]
+                    #detach = previous_position
                     path1 = move_j(robot, previous_position, detach)
                     previous_position = detach
 
                 elif previous_position == transport_a:
-                    detach = previous_position
+                    detach = [180.0, 140.0, 20.0, 0.0, 0.0, 0.0]
                     path1 = move_j(robot, previous_position, detach)
                     previous_position = detach
 
                 elif previous_position == transport_b:
-                    detach = previous_position
+                    detach =  [0.0, 140.0, 20.0, 0.0, 0.0, 0.0]
                     path1 = move_j(robot, previous_position, detach)
                     previous_position = detach
                 path_array.append(path1)
