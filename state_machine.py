@@ -116,9 +116,12 @@ def run():
                 print("Supervisor done!")
 
             if supervisor.current_state.value == "scan":
-		path1 = move_j(robot, previous_position, scan_position)
-		previous_position = scan_position
-		path_array.append(path1)
+                rot1 = rpy2r([0, 0, 0], unit='deg')
+                tran1 = [0.5, 0.5, 0.5]
+                scan_position = pose.SE3(tran1[0], tran1[1], tran1[2], rot1)
+                path1 = move_j(robot, previous_position, scan_position)
+                previous_position = scan_position
+                path_array.append(path1)
                 pass
 
             if supervisor.current_state.value == "classify":
@@ -141,7 +144,7 @@ def run():
 
             if supervisor.current_state.value == "detach":
                 pass
-	
+
 	path = np.concatenate((path1, path2), axis=0)
     	print(path)
 
