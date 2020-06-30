@@ -1,9 +1,12 @@
+import argparse
 import networkx as nx
 import matplotlib.pyplot as plt
 import sys
 
 
 def main():
+    
+
     G = nx.DiGraph()
 
     form_to = [
@@ -32,7 +35,15 @@ def main():
     H = nx.DiGraph(G)
     nx.draw_circular(H, with_labels=True, font_weight='bold')
 
-    print(nx.dijkstra_path(G, sys.argv[1], sys.argv[2]))
+    if len(sys.argv)==1:
+        print("just graph")
+        print("to display path add start_node and end_node arguments")
+    else:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('start_node', type=str)
+        parser.add_argument('end_node', type=str)
+        args = parser.parse_args()
+        print(nx.dijkstra_path(G, sys.argv[1], sys.argv[2]))
 
     plt.show()
 
