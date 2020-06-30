@@ -10,16 +10,20 @@ def main():
     G = nx.DiGraph()
 
     form_to = [
-            ["idle", ["scan"]],
-            ["scan", ["idle", "classify"]],
-            ["classify", ["grip"]],
-            ["grip", ["evaluate"]],
-            ["evaluate", ["scan", "trash", "transport blue", "transport red" ]],
-            ["trash", ["scan"]],
-            ["transport blue", ["detach"]],
-            ["transport red", ["detach"]],
-            ["detach", ["scan"]],
-            ["detach", ["evaluate"]],
+            ["idle", ["scan", "fail"]],
+            ["scan", ["idle", "classify", "fail"]],
+            ["classify", ["grip", "fail"]],
+            ["grip", ["evaluate", "fail"]],
+            ["evaluate", ["scan", "trash", "transport blue", "transport red", "fail" ]],
+            ["trash", ["scan", "fail"]],
+            ["transport blue", ["detach", "fail"]],
+            ["transport red", ["detach", "fail"]],
+            ["detach", ["scan", "fail"]],
+            ["detach", ["evaluate", "fail"]],
+            ["fail", ["malfunction_service"]],
+            ["malfunction_service", ["idle", "scan", "classify", "grip",
+                                     "evaluate", "trash", "transport blue",
+                                     "transport red", "detach"]]
         ]
 
     for indices in form_to:

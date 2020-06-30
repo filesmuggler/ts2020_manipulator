@@ -1,8 +1,10 @@
 # built-in libraries
 import argparse
+import random
 import robopy.base.model as robot
 import sys
 import numpy as np
+import time
 from robopy.base import pose
 from robopy import rpy2r
 from commands.moves import move_lin, move_j
@@ -21,15 +23,17 @@ def run():
     master_states = [State(**opt) for opt in options]
 
     form_to = [
-        [0, [1]],
-        [1, [0, 2]],
-        [2, [3]],
-        [3, [4]],
-        [4, [1, 5, 6, 7, ]],
-        [5, [1]],
-        [6, [8]],
-        [7, [8]],
-        [8, [1]],
+        [0, [1, 9]],
+        [1, [0, 2, 9]],
+        [2, [3, 9]],
+        [3, [4, 9]],
+        [4, [1, 5, 6, 7, 9]],
+        [5, [1, 9]],
+        [6, [8, 9]],
+        [7, [8, 9]],
+        [8, [1, 9]],
+        [9, [10]],
+        [10, [0, 1, 2, 3, 4, 5, 6, 7, 8]]
     ]
 
     master_transitions = {}
@@ -78,9 +82,6 @@ def run():
                 previous_position = scan
                 path_array.append(path1)
 
-            # if supervisor.current_state.value == "classify":
-            #     pass
-
             if supervisor.current_state.value == "grip":                
                 path1 = move_j(robot, previous_position, grip)
                 previous_position = grip
@@ -117,13 +118,28 @@ def run():
 
                 elif previous_position == transport_b:                    
                     path1 = move_j(robot, previous_position, detach_b)
-                    
                     previous_position = detach_b
                 path_array.append(path1)
 
+            if random.randint(0, 100) > 90:
+                idx = options_idx[supervisor.current_state.value]
+                master_transitions[f'm_{idx}_9']._run(supervisor)
+                print(supervisor.current_state)
+                master_transitions['m_9_10']._run(supervisor)
+                print(supervisor.current_state)
+                print("Monkeys are repairing machine...")
+                n = 100
+                for i in range(n):
+                    if i % 10 == 0:
+                        print("Repairing machine ({}%)".format(100 * i // n))
+                        time.sleep(0.01)
+
+                master_transitions[f'm_{10}_{idx}']._run(supervisor)
+                print("Recovered from fatal crash!")
+                print(supervisor.current_state)
+
     path = np.concatenate(path_array, axis=0)
 
-    print(path)
     model.animate(stances=path, frame_rate=30, unit='deg')
 
 if __name__ == '__main__':
