@@ -2,7 +2,7 @@
 Control Theory project at Poznan University of Technology
 
 ## Idea
-Automata implementation of UR5 arm with gripper detecting objects on the conveyor belt and moving them to the box.
+Automata implementation of Puma arm with gripper detecting objects on the conveyor belt and moving them to the box.
 
 ## HOW TO 
 To start simulation:
